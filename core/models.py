@@ -53,7 +53,7 @@ class Lesson(models.Model):
         SEGUNDA = 'SEG', _('Segunda Feira')
         TERCA = 'TER', _('Terça Feira')
         QUARTA = 'QUA', _('Quarta Feira')
-        QUINTA = 'QUI', _('Segunda Feira')
+        QUINTA = 'QUI', _('Quinta Feira')
         SEXTA = 'SEX', _('Sexta Feira')
 
     id = models.UUIDField(default=uuid4, primary_key=True, editable=False)

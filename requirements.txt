@@ -6,6 +6,7 @@ click==8.0.1
 Django==3.2.6
 django-cors-headers==3.8.0
 django-graphql-jwt==0.3.4
+django-graphql-playground==1.0
 graphene==2.1.9
 graphene-django==2.15.0
 graphql-core==2.3.2
