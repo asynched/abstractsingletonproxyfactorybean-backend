@@ -2,13 +2,16 @@ import graphene
 import graphql_jwt
 from graphql_jwt.decorators import login_required
 
-from .types import (
+from django.contrib.auth.models import User
+from api.graphql.types import (
+    RegisterMutation,
     TeacherType,
     TaskType,
     ClassType,
     LessonType,
     NoticeType,
     ResourceType,
+    UserType,
 )
 from core.models import Task, Teacher, Class, Lesson, Notice, Resource
 
@@ -28,6 +31,7 @@ class Query(graphene.ObjectType):
     lesson = graphene.Field(LessonType, uuid=graphene.UUID(required=True))
     notice = graphene.Field(NoticeType, uuid=graphene.UUID(required=True))
     resource = graphene.Field(ResourceType, uuid=graphene.UUID(required=True))
+    user = graphene.Field(UserType)
 
     lesson_by_day = graphene.List(LessonType, day=graphene.String(required=True))
 
@@ -80,11 +84,16 @@ class Query(graphene.ObjectType):
     def resolve_lesson_by_day(root, info, day):
         return Lesson.objects.filter(weekDay=day)
 
+    @login_required
+    def resolve_user(root, info):
+        return info.context.user
+
 
 class Mutation(graphene.ObjectType):
     token_auth = graphql_jwt.ObtainJSONWebToken.Field()
     verify_token = graphql_jwt.Verify.Field()
     refresh_token = graphql_jwt.Refresh.Field()
+    register = RegisterMutation.Field()
 
 
 schema = graphene.Schema(query=Query, mutation=Mutation)
