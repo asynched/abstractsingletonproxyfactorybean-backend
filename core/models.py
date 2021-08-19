@@ -34,7 +34,7 @@ class Task(models.Model):
         verbose_name_plural = _('Tasks')
 
 
-class Class(models.Model):
+class Subject(models.Model):
     id = models.UUIDField(default=uuid4, primary_key=True, editable=False)
     name = models.CharField(max_length=63)
     description = models.CharField(max_length=255)
@@ -44,8 +44,8 @@ class Class(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = _('Class')
-        verbose_name_plural = _('Classes')
+        verbose_name = _('Subject')
+        verbose_name_plural = _('Subjects')
 
 
 class Lesson(models.Model):
@@ -57,18 +57,21 @@ class Lesson(models.Model):
         SEXTA = 'SEX', _('Sexta Feira')
 
     id = models.UUIDField(default=uuid4, primary_key=True, editable=False)
-    cls = models.ForeignKey(Class, verbose_name='Class', on_delete=models.CASCADE)
+    subject = models.ForeignKey(
+        Subject, verbose_name='Subject', on_delete=models.CASCADE
+    )
     schedule = models.CharField(max_length=15)
     weekDay = models.CharField(
         'Week day', choices=WeekDays.choices, max_length=15
     )  # TODO - Text choices
 
     def __str__(self):
-        return f'{self.cls} - {self.schedule}'
+        return f'{self.subject} - {self.schedule}'
 
     class Meta:
         verbose_name = _('Lesson')
         verbose_name_plural = _('Lessons')
+        ordering = ['-weekDay']
 
 
 class Resource(models.Model):
@@ -76,7 +79,9 @@ class Resource(models.Model):
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     url = models.URLField(max_length=255)
-    cls = models.ForeignKey(Class, verbose_name='Class', on_delete=models.CASCADE)
+    subject = models.ForeignKey(
+        Subject, verbose_name='Subject', on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return self.name
@@ -90,7 +95,9 @@ class Notice(models.Model):
     id = models.UUIDField(default=uuid4, primary_key=True, editable=False)
     title = models.CharField(max_length=255)
     text = models.TextField()
-    cls = models.ForeignKey(Class, verbose_name='Class', on_delete=models.CASCADE)
+    subject = models.ForeignKey(
+        Subject, verbose_name='Subject', on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return self.title

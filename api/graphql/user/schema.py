@@ -1,8 +1,6 @@
 import graphene
 from graphene_django import DjangoObjectType
-
 from django.contrib.auth.models import User
-from core.models import Task, Teacher, Class, Lesson, Notice, Resource
 
 
 class UserType(DjangoObjectType):
@@ -42,39 +40,3 @@ class RegisterMutation(graphene.Mutation):
             first_name=user.first_name,
             last_name=user.last_name,
         )
-
-
-class TaskType(DjangoObjectType):
-    class Meta:
-        model = Task
-        fields = "__all__"
-
-
-class TeacherType(DjangoObjectType):
-    class Meta:
-        model = Teacher
-        fields = "__all__"
-
-
-class ClassType(DjangoObjectType):
-    class Meta:
-        model = Class
-        fields = "__all__"
-
-
-class LessonType(DjangoObjectType):
-    class Meta:
-        model = Lesson
-        fields = "__all__"
-
-
-class NoticeType(DjangoObjectType):
-    class Meta:
-        model = Notice
-        fields = "__all__"
-
-
-class ResourceType(DjangoObjectType):
-    class Meta:
-        model = Resource
-        fields = "__all__"
