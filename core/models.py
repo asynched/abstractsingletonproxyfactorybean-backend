@@ -64,6 +64,7 @@ class Lesson(models.Model):
     weekDay = models.CharField(
         'Week day', choices=WeekDays.choices, max_length=15
     )  # TODO - Text choices
+    url = models.URLField(max_length=255)
 
     def __str__(self):
         return f'{self.subject} - {self.schedule}'

@@ -7,7 +7,7 @@ from api.graphql.teacher.schema import TeacherQueries
 from api.graphql.subject.schema import SubjectQueries
 from api.graphql.resource.schema import ResourceQueries
 from api.graphql.notice.schema import NoticeQueries
-from api.graphql.user.schema import RegisterMutation
+from api.graphql.user.schema import RegisterMutation, UserQueries
 
 
 class Query(
@@ -17,6 +17,7 @@ class Query(
     SubjectQueries,
     ResourceQueries,
     NoticeQueries,
+    UserQueries,
 ):
     pass
 

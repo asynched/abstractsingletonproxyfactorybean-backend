@@ -1,6 +1,7 @@
 import graphene
 from graphene_django import DjangoObjectType
 from django.contrib.auth.models import User
+from graphql_jwt.decorators import login_required
 
 
 class UserType(DjangoObjectType):
@@ -11,6 +12,14 @@ class UserType(DjangoObjectType):
             'first_name',
             'last_name',
         ]
+
+
+class UserQueries(graphene.ObjectType):
+    get_self = graphene.Field(UserType)
+
+    @login_required
+    def resolve_get_self(root, info):
+        return info.context.user
 
 
 class RegisterMutation(graphene.Mutation):

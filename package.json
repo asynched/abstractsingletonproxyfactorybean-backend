@@ -4,6 +4,7 @@
     "migration:make": "python manage.py makemigrations",
     "migration:run": "python manage.py migrate",
     "dev": "python manage.py runserver",
-    "django": "python manage.py"
+    "django": "python manage.py",
+    "generate:schema": "python manage.py graphql_schema --out schema.graphql"
   }
 }

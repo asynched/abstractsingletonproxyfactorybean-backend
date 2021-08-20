@@ -7,3 +7,4 @@
 *.env
 *.sqlite3
 *.pyc
+*.graphql
