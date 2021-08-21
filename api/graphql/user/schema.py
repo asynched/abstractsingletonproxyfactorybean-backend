@@ -2,6 +2,7 @@ import graphene
 from graphene_django import DjangoObjectType
 from django.contrib.auth.models import User
 from graphql_jwt.decorators import login_required
+from api.graphql.validators.user import UserValidator
 
 
 class UserType(DjangoObjectType):
@@ -35,6 +36,11 @@ class RegisterMutation(graphene.Mutation):
 
     @classmethod
     def mutate(cls, root, info, username, first_name, last_name, password):
+        UserValidator.validate_username(username)
+        UserValidator.validate_name(first_name)
+        UserValidator.validate_name(last_name)
+        UserValidator.validate_password(password)
+
         user = User.objects.create_user(
             username=username,
             first_name=first_name,

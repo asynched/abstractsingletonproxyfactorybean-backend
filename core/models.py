@@ -96,8 +96,8 @@ class Notice(models.Model):
     id = models.UUIDField(default=uuid4, primary_key=True, editable=False)
     title = models.CharField(max_length=255)
     text = models.TextField()
-    subject = models.ForeignKey(
-        Subject, verbose_name='Subject', on_delete=models.CASCADE
+    teacher = models.ForeignKey(
+        Teacher, verbose_name='Teacher', on_delete=models.CASCADE
     )
 
     def __str__(self):
