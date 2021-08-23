@@ -1,10 +1,11 @@
 # Folders
 **/venv
 **/__pycache__
-
+**/backup
 
 # Files
 *.env
 *.sqlite3
 *.pyc
 *.graphql
+dump.json

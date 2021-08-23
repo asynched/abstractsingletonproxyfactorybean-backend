@@ -5,6 +5,8 @@
     "migration:run": "python manage.py migrate",
     "dev": "python manage.py runserver",
     "django": "python manage.py",
-    "generate:schema": "python manage.py graphql_schema --out schema.graphql"
+    "generate:schema": "python manage.py graphql_schema --out schema.graphql",
+    "generate:dump": "python manage.py dumpdata --natural-foreign --natural-primary -e contenttypes -e auth.Permission --indent 2 > dump.json",
+    "generate:database": "python manage.py loaddata dump.json"
   }
 }

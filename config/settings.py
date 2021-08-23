@@ -10,7 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-from env.variables import ENVIRONMENT, DEFAULT_DATABASE, SECRET_KEY
+from env.variables import (
+    DATABASE_CONNECTION_STRING,
+    DATABASE_PASSWORD,
+    DATABASE_USERNAME,
+    ENVIRONMENT,
+    DEFAULT_DATABASE,
+    SECRET_KEY,
+)
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -83,10 +90,21 @@ DATABASE_PROFILES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     },
-    'MONGO_DATABASE': {},  # TODO - This is a big todo, really. 🦥
+    'MONGO_DATABASE': {
+        'ENGINE': 'djongo',
+        'NAME': 'PRODUCTION_DATABASE',
+        'CLIENT': {
+            'port': 27017,
+            'host': DATABASE_CONNECTION_STRING,
+            'username': DATABASE_USERNAME,
+            'password': DATABASE_PASSWORD,
+        },
+    },  # TODO - This is a big todo, really. 🦥
 }
 
-DATABASES = {'default': DATABASE_PROFILES[DEFAULT_DATABASE]}
+DATABASES = {
+    'default': DATABASE_PROFILES[DEFAULT_DATABASE],
+}
 
 
 # Password validation
