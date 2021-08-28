@@ -25,7 +25,6 @@ class Task(models.Model):
     id = models.UUIDField(default=uuid4, primary_key=True, editable=False)
     title = models.CharField(max_length=255)
     description = models.TextField()
-    attachments = models.URLField(max_length=255)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     dueDate = models.DateField('Due date')
 
@@ -41,7 +40,7 @@ class Attachment(models.Model):
     id = models.UUIDField(default=uuid4, primary_key=True, editable=False)
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
-    url = models.URLField(max_length=384)
+    url = models.URLField(max_length=512)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
 
     def __str__(self):

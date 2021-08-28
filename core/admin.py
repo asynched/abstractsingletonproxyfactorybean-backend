@@ -4,7 +4,11 @@ from core.models import Attachment, Teacher, Task, Subject, Notice, Resource, Le
 
 @admin.register(Teacher)
 class TeacherAdmin(admin.ModelAdmin):
-    list_display = ['name', 'imageUrl', 'email', 'about']
+    list_display = [
+        'name',
+        'email',
+        'about',
+    ]
 
 
 @admin.register(Task)

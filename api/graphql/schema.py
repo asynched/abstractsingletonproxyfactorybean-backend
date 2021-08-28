@@ -9,6 +9,7 @@ from api.graphql.resource.schema import ResourceQueries
 from api.graphql.notice.schema import NoticeQueries
 from api.graphql.user.schema import RegisterMutation, UserQueries
 from api.graphql.attachment.schema import AttachmentQueries
+from api.graphql.status.schema import StatusQueries
 
 
 class Query(
@@ -20,6 +21,7 @@ class Query(
     NoticeQueries,
     UserQueries,
     AttachmentQueries,
+    StatusQueries,
 ):
     pass
 
