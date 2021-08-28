@@ -6,9 +6,12 @@ from uuid import uuid4
 class Teacher(models.Model):
     id = models.UUIDField(default=uuid4, primary_key=True, editable=False)
     name = models.CharField(max_length=63)
-    imageUrl = models.CharField('Image url', max_length=255)
+    imageUrl = models.CharField('Image url', max_length=384)
     email = models.EmailField(max_length=63)
     about = models.CharField(max_length=255)
+    sharedFolder = models.URLField(
+        'Shared folder', max_length=384, blank=True, null=True
+    )
 
     def __str__(self):
         return self.name
@@ -34,6 +37,17 @@ class Task(models.Model):
         verbose_name_plural = _('Tasks')
 
 
+class Attachment(models.Model):
+    id = models.UUIDField(default=uuid4, primary_key=True, editable=False)
+    name = models.CharField(max_length=255)
+    description = models.CharField(max_length=255)
+    url = models.URLField(max_length=384)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+
 class Subject(models.Model):
     id = models.UUIDField(default=uuid4, primary_key=True, editable=False)
     name = models.CharField(max_length=63)
@@ -57,13 +71,9 @@ class Lesson(models.Model):
         SEXTA = 'SEX', _('Sexta Feira')
 
     id = models.UUIDField(default=uuid4, primary_key=True, editable=False)
-    subject = models.ForeignKey(
-        Subject, verbose_name='Subject', on_delete=models.CASCADE
-    )
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     schedule = models.CharField(max_length=15)
-    weekDay = models.CharField(
-        'Week day', choices=WeekDays.choices, max_length=15
-    )  # TODO - Text choices
+    weekDay = models.CharField('Week day', choices=WeekDays.choices, max_length=15)
     url = models.URLField(max_length=255)
 
     def __str__(self):
@@ -80,9 +90,7 @@ class Resource(models.Model):
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     url = models.URLField(max_length=255)
-    subject = models.ForeignKey(
-        Subject, verbose_name='Subject', on_delete=models.CASCADE
-    )
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
