@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import Attachment, Teacher, Task, Subject, Notice, Resource, Lesson
+from core.models import Resource, Teacher, Task, Subject, Notice, Lesson
 
 
 @admin.register(Teacher)
@@ -21,11 +21,11 @@ class TaskAdmin(admin.ModelAdmin):
     ]
 
 
-@admin.register(Attachment)
-class AttachmentAdmin(admin.ModelAdmin):
+@admin.register(Resource)
+class ResourceAdmin(admin.ModelAdmin):
     list_display = [
         'name',
-        'url',
+        'description',
     ]
 
 
@@ -52,14 +52,4 @@ class NoticeAdmin(admin.ModelAdmin):
     list_display = [
         'title',
         'text',
-    ]
-
-
-@admin.register(Resource)
-class ResourceAdmin(admin.ModelAdmin):
-    list_display = [
-        'name',
-        'description',
-        'subject',
-        'url',
     ]

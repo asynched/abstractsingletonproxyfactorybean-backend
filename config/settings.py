@@ -168,3 +168,31 @@ AUTHENTICATION_BACKENDS = [
 
 # CORS
 CORS_ALLOW_ALL_ORIGINS = True
+
+# LOGGING
+SERVER_LOGS = False
+
+if SERVER_LOGS:
+    import logging
+
+    l = logging.getLogger('django.db.backends')
+    l.setLevel(logging.DEBUG)
+    l.addHandler(logging.StreamHandler())
+
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'console': {
+                'level': 'DEBUG',
+                'class': 'logging.StreamHandler',
+            },
+        },
+        'loggers': {
+            'django': {
+                'handlers': ['console'],
+                'level': 'DEBUG',
+                'propagate': True,
+            },
+        },
+    }

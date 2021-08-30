@@ -1,4 +1,5 @@
 import graphene
+import datetime as dt
 from graphene_django import DjangoObjectType
 from graphql_jwt.decorators import login_required
 
@@ -17,7 +18,9 @@ class TaskQueries(graphene.ObjectType):
 
     @login_required
     def resolve_all_tasks(root, info):
-        return Task.objects.all()
+        return Task.objects.filter(dueDate__gte=dt.datetime.utcnow()).order_by(
+            'dueDate'
+        )
 
     @login_required
     def resolve_task(root, info, uuid: str):

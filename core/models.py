@@ -36,7 +36,7 @@ class Task(models.Model):
         verbose_name_plural = _('Tasks')
 
 
-class Attachment(models.Model):
+class Resource(models.Model):
     id = models.UUIDField(default=uuid4, primary_key=True, editable=False)
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
@@ -84,28 +84,12 @@ class Lesson(models.Model):
         ordering = ['-weekDay']
 
 
-class Resource(models.Model):
-    id = models.UUIDField(default=uuid4, primary_key=True, editable=False)
-    name = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
-    url = models.URLField(max_length=255)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = _('Resource')
-        verbose_name_plural = _('Resources')
-
-
 class Notice(models.Model):
     id = models.UUIDField(default=uuid4, primary_key=True, editable=False)
     title = models.CharField(max_length=255)
     text = models.TextField()
-    teacher = models.ForeignKey(
-        Teacher, verbose_name='Teacher', on_delete=models.CASCADE
-    )
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+    active = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
