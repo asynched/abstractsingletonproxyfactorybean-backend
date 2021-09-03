@@ -17,7 +17,7 @@ class NoticeQueries(graphene.ObjectType):
 
     @login_required
     def resolve_all_notices(root, info):
-        return Notice.objects.all()
+        return Notice.objects.filter(active=True)
 
     @login_required
     def resolve_notice(root, info, uuid: str):
